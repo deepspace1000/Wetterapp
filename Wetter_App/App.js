@@ -1,4 +1,3 @@
-import { StyleSheet, Text, View } from 'react-native';
 import WeatherScreen from './components/WeatherScreen';
 import FavoritesScreen from './components/FavoritesScreen';
 import SearchScreen from './components/SearchScreen';
