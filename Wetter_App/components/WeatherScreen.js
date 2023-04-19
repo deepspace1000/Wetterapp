@@ -7,7 +7,12 @@ export default function WeatherScreen() {
 
   return (
     <View style={styles.container}>
-           <Text>Hallo von WeatherScreen!</Text>
+        <ImageBackground source={require('./../assets/wolke.jpg')} style={styles.background}>
+            <View style={styles.innerContainer}>
+                <Text>Hallo von WeatherScreen!</Text>
+            </View>
+
+        </ImageBackground>
     </View>
   );
 };
@@ -15,14 +20,14 @@ export default function WeatherScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     background: {
         flex: 1,
-        //resizeMode: 'cover',
+        resizeMode: 'cover',
         justifyContent: 'center',
     },
+    innerContainer: {
+        alignItems: "center",
+    }
 });
 
