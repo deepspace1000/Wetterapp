@@ -8,7 +8,7 @@ export default function WeatherScreen() {
   return (
     <View style={styles.container}>
         <ImageBackground source={require('./../assets/wolke.jpg')} style={styles.background}>
-            <View style={styles.innerContainer}>
+            <View>
                 <Text>Hallo von WeatherScreen!</Text>
             </View>
 
@@ -25,9 +25,7 @@ const styles = StyleSheet.create({
         flex: 1,
         resizeMode: 'cover',
         justifyContent: 'center',
-    },
-    innerContainer: {
         alignItems: "center",
-    }
+    },
 });
 

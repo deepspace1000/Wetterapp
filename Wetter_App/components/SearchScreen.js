@@ -1,11 +1,15 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ImageBackground} from 'react-native';
 
 
 export default function WeatherScreen() {
     return (
         <View style={styles.container}>
-            <Text>Hallo von Search Screen!</Text>
+            <ImageBackground source={require('./../assets/wolke.jpg')} style={styles.background}>
+                <View>
+                    <Text>Hallo von Search Screen!</Text>
+                </View>
+            </ImageBackground>
         </View>
     );
 };
@@ -13,8 +17,11 @@ export default function WeatherScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
+    },
+    background: {
+        flex: 1,
+        resizeMode: 'cover',
         justifyContent: 'center',
+        alignItems: "center",
     },
 });

@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, } from 'react-native'
+import {StyleSheet, ImageBackground} from 'react-native'
 import WeatherScreen from './components/WeatherScreen';
 import FavoritesScreen from './components/FavoritesScreen';
 import SearchScreen from './components/SearchScreen';
@@ -13,8 +13,11 @@ const favoritenName = "Favoriten";
 const wetterName = "Wetter";
 const sucheName = "Suche";
 
+
+
 export default function App() {
   return (
+
       <NavigationContainer>
         <Tab.Navigator initialRouteName={wetterName}
                        screenOptions={({ route }) => ({
@@ -68,5 +71,10 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.5,
         elevation: 5
-    }
+    },
+    background: {
+        flex: 1,
+        resizeMode: 'cover',
+        justifyContent: 'center',
+    },
 });
