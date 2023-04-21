@@ -15,7 +15,6 @@ export default function WeatherScreen() {
                                   <View style={styles.listView}>
                                       <Text style={styles.placeName}>{item.name}</Text>
                                   </View>
-
                     }
                     />
                 </View>
