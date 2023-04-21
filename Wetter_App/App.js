@@ -19,7 +19,7 @@ export default function App() {
   return (
 
       <NavigationContainer>
-        <Tab.Navigator initialRouteName={wetterName}
+        <Tab.Navigator initialRouteName={favoritenName}
                        screenOptions={({ route }) => ({
                            tabBarIcon: ({ focused, color, size }) => {
                                let iconName;
