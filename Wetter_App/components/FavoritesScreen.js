@@ -6,7 +6,7 @@ import * as Location from 'expo-location';
 
 
 export default function WeatherScreen() {
-    const[favoritesList, setFavoritesList] = useState([{id: 0, name: "waiting"}, {name: 'Zurich'}, {name: 'Bauma'}]);
+    const[favoritesList, setFavoritesList] = useState([{id: 0, name: "Waiting"}, {name: 'Zurich'}, {name: 'Bauma'}]);
 
     const [locationName, setLocationName] = useState('Waiting..');
     useEffect(() => {
