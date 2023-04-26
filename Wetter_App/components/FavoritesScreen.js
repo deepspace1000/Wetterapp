@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, ImageBackground, FlatList, TouchableOpacity, But
 import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Swipeable } from 'react-native-gesture-handler';
+import { IconButton } from "react-native-paper";
 
 const Item = ({ title }) => {
     const [swipeableRef, setSwipeableRef] = useState(null);
@@ -121,7 +122,7 @@ export default function WeatherScreen({navigation}) {
                                       ref={ref => setSwipeableRef(ref)}
                                       renderRightActions={() => (
                                           <View style={styles.listView}>
-                                              <Text>Action</Text>
+                                              <IconButton icon={'trash-can-outline'}/>
                                           </View>
                                       )}
                                   >
