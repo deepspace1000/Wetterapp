@@ -2,27 +2,41 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, ImageBackground, FlatList, TouchableOpacity, Button} from 'react-native';
 import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Swipeable } from 'react-native-gesture-handler';
 
+const Item = ({ title }) => {
+    const [swipeableRef, setSwipeableRef] = useState(null);
+
+
+    return (
+        <Swipeable
+            ref={ref => setSwipeableRef(ref)}
+            renderRightActions={() => (
+                <View style={styles.listView}>
+                    <Text>Action</Text>
+                </View>
+            )}
+
+        >
+            <TouchableOpacity style={styles.listView} onPress={() => {
+                navigation.navigate('Wetter', {location: item.name,});
+            }}>
+                <Text style={styles.placeName}>{title}</Text>
+        </TouchableOpacity>
+        </Swipeable>
+    );
+};
 
 export default function WeatherScreen({navigation}) {
-    const [favoritesList, setFavoritesList] = useState([{key: 0, name: "Waiting.."}]);
+    const [favoritesList, setFavoritesList] = useState([]);
     const [locationName, setLocationName] = useState('Waiting..');
+    const [swipeableRef, setSwipeableRef] = useState(null);
 
-    const[value, setValue] = useState([{key: 1, name: "Zurich"}]);
+    const[value, setValue] = useState([{key: 1, name: "Zurich"}, {key: 2, name: "Bauma"}]);
 
     const storePlace = async () => {
         try {
             await AsyncStorage.setItem("locations", JSON.stringify(value));
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const getPlace = async () => {
-        try {
-            const savedPlace = await AsyncStorage.getItem("locations");
-            const currentPlace = JSON.parse(savedPlace);
-            console.log(currentPlace);
         } catch (error) {
             console.log(error);
         }
@@ -73,7 +87,7 @@ export default function WeatherScreen({navigation}) {
             try {
                 const savedPlace = await AsyncStorage.getItem("locations");
                 const currentPlace = JSON.parse(savedPlace);
-                const newList = [...favoritesList, ...currentPlace];
+                const newList = [{key: 0, name: locationName}, ...currentPlace];
                 setFavoritesList(newList);
                 console.log(currentPlace);
             } catch (error) {
@@ -94,24 +108,31 @@ export default function WeatherScreen({navigation}) {
         })();
     }, [favoritesList]);
 
+
     return (
         <View style={styles.container}>
             <ImageBackground source={require('./../assets/wolke.jpg')} style={styles.background}>
                 <View style={styles.innerContainer}>
                     <Button title={'save'} onPress={storePlace}></Button>
-                    <Button title={'show'} onPress={getPlace}></Button>
                     <FlatList data={favoritesList}
-                              keyExtractor={(x, i) => i}
+                              keyExtractor={item => item.key}
                               renderItem={({item}) =>
-                                  <TouchableOpacity style={styles.listView} onPress={() => {
-                                      navigation.navigate('Wetter', {location: item.name,});
-                                  }}>
-                                      <Text style={styles.placeName}>key: {item.key}; {item.name}</Text>
-                                  </TouchableOpacity>
-
+                                  <Swipeable
+                                      ref={ref => setSwipeableRef(ref)}
+                                      renderRightActions={() => (
+                                          <View style={styles.listView}>
+                                              <Text>Action</Text>
+                                          </View>
+                                      )}
+                                  >
+                                      <TouchableOpacity style={styles.listView} onPress={() => {
+                                          navigation.navigate('Wetter', {location: item.name,});
+                                      }}>
+                                          <Text style={styles.placeName}>{item.name}</Text>
+                                      </TouchableOpacity>
+                                  </Swipeable>
                     }
                     />
-
                 </View>
             </ImageBackground>
         </View>
@@ -132,8 +153,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'stretch',
         marginTop: 90,
-
-
     },
     listView: {
         alignItems: 'center',
