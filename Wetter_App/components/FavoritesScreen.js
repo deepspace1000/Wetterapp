@@ -5,29 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Swipeable } from 'react-native-gesture-handler';
 import { IconButton } from "react-native-paper";
 
-const Item = ({ title }) => {
-    const [swipeableRef, setSwipeableRef] = useState(null);
-
-
-    return (
-        <Swipeable
-            ref={ref => setSwipeableRef(ref)}
-            renderRightActions={() => (
-                <View style={styles.listView}>
-                    <Text>Action</Text>
-                </View>
-            )}
-
-        >
-            <TouchableOpacity style={styles.listView} onPress={() => {
-                navigation.navigate('Wetter', {location: item.name,});
-            }}>
-                <Text style={styles.placeName}>{title}</Text>
-        </TouchableOpacity>
-        </Swipeable>
-    );
-};
-
 export default function WeatherScreen({navigation}) {
     const [favoritesList, setFavoritesList] = useState([]);
     const [locationName, setLocationName] = useState('Waiting..');
