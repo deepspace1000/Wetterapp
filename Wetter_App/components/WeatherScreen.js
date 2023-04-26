@@ -3,13 +3,14 @@ import {ImageBackground, View, Text, StyleSheet} from 'react-native';
 
 
 
-export default function WeatherScreen() {
-
+export default function WeatherScreen({route}) {
+    const{location} = route.params;
   return (
     <View style={styles.container}>
         <ImageBackground source={require('./../assets/wolke.jpg')} style={styles.background}>
             <View>
                 <Text>Hallo von WeatherScreen!</Text>
+                <Text>{location}</Text>
             </View>
 
         </ImageBackground>

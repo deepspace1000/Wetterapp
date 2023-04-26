@@ -54,7 +54,7 @@ export default function App() {
                        })
         }>
           <Tab.Screen name={favoritenName} component={FavoritesScreen}/>
-          <Tab.Screen name={wetterName} component={WeatherScreen}/>
+          <Tab.Screen name={wetterName} component={WeatherScreen} initialParams={{location: 'Zurich'}}/>
           <Tab.Screen name={sucheName} component={SearchScreen}/>
         </Tab.Navigator>
       </NavigationContainer>

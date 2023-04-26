@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, ImageBackground, FlatList} from 'react-native';
+import {View, Text, StyleSheet, ImageBackground, FlatList, TouchableOpacity} from 'react-native';
 import * as Location from 'expo-location';
 
 
 
 
-export default function WeatherScreen() {
+export default function WeatherScreen({navigation}) {
     const[favoritesList, setFavoritesList] = useState([{id: 0, name: "Waiting"}, {name: 'Zurich'}, {name: 'Bauma'}]);
 
     const [locationName, setLocationName] = useState('Waiting..');
@@ -53,9 +53,12 @@ export default function WeatherScreen() {
                     <FlatList data={favoritesList}
                               keyExtractor={(x, i) => i}
                               renderItem={({item}) =>
-                                  <View style={styles.listView}>
+                                  <TouchableOpacity style={styles.listView} onPress={() => {
+                                      navigation.navigate('Wetter', {location: item.name,});
+                                  }}>
                                       <Text style={styles.placeName}>{item.name}</Text>
-                                  </View>
+                                  </TouchableOpacity>
+
                     }
                     />
                 </View>
