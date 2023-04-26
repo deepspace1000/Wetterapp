@@ -109,6 +109,11 @@ export default function WeatherScreen({navigation}) {
         })();
     }, [favoritesList]);
 
+    const handleDelete = (index) => {
+        const temp = favoritesList.filter((item) => item.key !== index);
+        setFavoritesList(temp);
+
+    }
 
     return (
         <View style={styles.container}>
@@ -121,8 +126,8 @@ export default function WeatherScreen({navigation}) {
                                   <Swipeable
                                       ref={ref => setSwipeableRef(ref)}
                                       renderRightActions={() => (
-                                          <View style={styles.listView}>
-                                              <IconButton icon={'trash-can-outline'}/>
+                                          <View style={styles.deleteButton}>
+                                              <IconButton icon={'trash-can-outline'} onPress={() => handleDelete(item.key)}/>
                                           </View>
                                       )}
                                   >
@@ -165,6 +170,13 @@ const styles = StyleSheet.create({
     },
     placeName: {
         fontSize: 15,
-
     },
+    deleteButton: {
+        alignItems: 'center',
+        backgroundColor: '#ff0000',
+        margin: 5,
+        height: 50,
+        borderRadius: 15,
+        justifyContent: 'center',
+    }
 });
