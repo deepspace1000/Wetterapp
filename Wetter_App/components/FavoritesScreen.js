@@ -25,7 +25,7 @@ export default function WeatherScreen({navigation}) {
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
-                locationName('Permission to access location was denied');
+                setLocationName('Permission to access location was denied');
                 return;
             }
 
