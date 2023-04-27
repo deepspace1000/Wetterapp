@@ -4,6 +4,8 @@ import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Swipeable } from 'react-native-gesture-handler';
 import { IconButton } from "react-native-paper";
+import { useFocusEffect } from '@react-navigation/native';
+
 
 export default function WeatherScreen({navigation}) {
     const [favoritesList, setFavoritesList] = useState([]);
@@ -49,7 +51,44 @@ export default function WeatherScreen({navigation}) {
         setFavoritesList(updateCurrentLocation)
     }, [locationName]);
 
-    //useEffect get all saved favorites places
+    /*
+    //useFocusEffect get all saved favorites places
+    useFocusEffect(
+        React.useCallback(() =>{
+            const current = favoritesList.filter((item) => item.key === 0);
+            const fetchData = async () => {
+                try {
+                    const savedPlace = await AsyncStorage.getItem("locations");
+                    const currentPlace = JSON.parse(savedPlace);
+                    const newList = [{key: 0, name: locationName}, ...currentPlace];
+                    setFavoritesList(newList);
+                } catch (error) {
+                    console.log(error)
+                }
+            };
+            fetchData();
+        }, [])
+    );
+    */
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () =>{
+            const current = favoritesList.filter((item) => item.key === 0);
+            const fetchData = async () => {
+                try {
+                    const savedPlace = await AsyncStorage.getItem("locations");
+                    const currentPlace = JSON.parse(savedPlace);
+                    const newList = [{key: 0, name: locationName}, ...currentPlace];
+                    setFavoritesList(newList);
+                } catch (error) {
+                    console.log(error)
+                }
+            };
+            fetchData();
+        })
+        return unsubscribe;
+    }, [navigation]);
+    /*
     useEffect(() => {
         (async () => {
             try {
@@ -62,7 +101,7 @@ export default function WeatherScreen({navigation}) {
             }
         })();
     }, []);
-
+*/
     //Update Local storage
     useEffect(() => {
         const temp = favoritesList.filter((item) => item.key !== 0);
