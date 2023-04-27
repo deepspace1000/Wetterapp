@@ -2,9 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {ImageBackground, View, Text, StyleSheet} from 'react-native';
 
 
-
-
-export default function WeatherScreen({route}) {
+export default function WeatherScreen({route, navigation}) {
 
     const{location} = route.params;
     const [weatherData, setWeatherData] = useState(null);
@@ -31,7 +29,9 @@ export default function WeatherScreen({route}) {
 
     useEffect(() => {
         fetchWeather(location);
+        navigation.setOptions({title: location});
     }, [location]);
+
 
 
 
