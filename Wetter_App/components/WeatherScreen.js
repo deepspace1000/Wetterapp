@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {ImageBackground, View, Text, StyleSheet} from 'react-native';
+import Details from './View/WeatherScreenView'
 
 
 export default function WeatherScreen({route, navigation}) {
@@ -35,38 +36,10 @@ export default function WeatherScreen({route, navigation}) {
 
 
 
-
-
-
-    if(!loaded){
-        return(
-            <View style={styles.container}>
-                <Text>Loading</Text>
-            </View>
-        );
-    }
-    else if(weatherData === null) {
-        return (
-            <View style={styles.container}>
-                <Text>City not Found</Text>
-            </View>
-        );
-    }
-
-    const {
-        //Bald werden noch mehr Daten zu auswahl stehen
-        main: {temp}
-    } = weatherData;
-
-
   return (
     <View style={styles.container}>
         <ImageBackground source={require('./../assets/wolke.jpg')} style={styles.background}>
-            <View>
-                <Text>Hallo von WeatherScreen!</Text>
-                <Text>{location}</Text>
-                <Text>{temp}</Text>
-            </View>
+            <Details weatherData={weatherData} loaded={loaded}/>
         </ImageBackground>
     </View>
   );
