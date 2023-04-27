@@ -1,13 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {ImageBackground, View, Text, StyleSheet} from 'react-native';
 import Details from './View/WeatherScreenView'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export default function WeatherScreen({route, navigation}) {
 
-    const{location} = route.params;
+    const [savedPlaces, setSavedPlaces] = useState([]);
+    const [isFavorite, setIsFavorite] = useState(true);
+    const {location} = route.params;
     const [weatherData, setWeatherData] = useState(null);
     const [loaded, setLoaded] = useState(false);
+
 
     const fetchWeather = async (locationName) => {
         try {
@@ -27,11 +31,62 @@ export default function WeatherScreen({route, navigation}) {
             console.error("Error");
         }
     };
+    const fetchSavedPlaces = async () => {
+        try {
+            const savedPlace = await AsyncStorage.getItem("locations");
+            const currentPlace = JSON.parse(savedPlace);
+            const newList = [...currentPlace];
+            setSavedPlaces(newList);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const isSaved = () => {
+       if (savedPlaces.find(obj => obj.name === location)){
+           return true;
+       }
+       return false;
+    };
+
+    const handleStatusChange = () => {
+        if (isFavorite){
+
+        }else {
+            const generateKey = savedPlaces.length + 1;
+            setSavedPlaces([
+                ...savedPlaces,
+                {
+                    key: generateKey,
+                    name: location,
+                },
+            ]);
+        }
+    };
+
+    const updateStorage = async () => {
+        try {
+            await AsyncStorage.setItem("locations", JSON.stringify(savedPlaces));
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     useEffect(() => {
         fetchWeather(location);
+        fetchSavedPlaces();
         navigation.setOptions({title: location});
+
     }, [location]);
+
+    useEffect(() => {
+        if(isSaved()){
+            setIsFavorite(true);
+        } else {
+            setIsFavorite(false);
+        }
+        updateStorage();
+    }, [savedPlaces]);
 
 
 
@@ -39,7 +94,7 @@ export default function WeatherScreen({route, navigation}) {
   return (
     <View style={styles.container}>
         <ImageBackground source={require('./../assets/wolke.jpg')} style={styles.background}>
-            <Details weatherData={weatherData} loaded={loaded}/>
+            <Details weatherData={weatherData} loaded={loaded} isFavorite={isFavorite} handleStatusChange={handleStatusChange}/>
         </ImageBackground>
     </View>
   );
@@ -53,7 +108,8 @@ const styles = StyleSheet.create({
         flex: 1,
         resizeMode: 'cover',
         justifyContent: 'center',
-        alignItems: "center",
+        alignItems: "stretch",
     },
+
 });
 

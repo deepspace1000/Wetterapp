@@ -1,10 +1,22 @@
 import {StyleSheet, Text, View} from "react-native";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function Details(props) {
+export default function Details(props, ) {
+    const [savedPlaces, setSavedPlaces] = useState([]);
 
 
+    const SaveStar = () => {
+        if (props.isFavorite){
+            return(
+                <Ionicons name={'star'} style={styles.Icon} size={25} onPress={() => {console.log("pressed")}}/>
+            );
+        }else {
+            return (
+                <Ionicons name={'star-outline'} style={styles.Icon} size={25} onPress={() => {props.handleStatusChange()}}/>
+        );}
+    }
 
     if(!props.loaded){
         return(
@@ -26,18 +38,29 @@ export default function Details(props) {
         } = props.weatherData;
 
         return (
-            <View>
-                <Text>Hallo von WeatherScreen!</Text>
-                <Text>{temp}</Text>
-                <Ionicons name={'star-outline'} style={styles.Icon} size={25}/>
+            <View style={styles.innerContainer}>
+                <View style={styles.topBar}>
+                    <SaveStar/>
+                </View>
+                <View style={styles.weatherDetails}>
+                    <Text>{temp}</Text>
+                </View>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    Icon: {
+    innerContainer: {
+        flex: 1,
+        alignItems: 'stretch',
+        marginTop: 90,
+    },
+    topBar: {
+        alignItems: "flex-end",
+        marginRight: 40,
+    },
+    weatherDetails: {
 
-    }
-
+    },
 });

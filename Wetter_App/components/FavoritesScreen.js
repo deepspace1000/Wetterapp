@@ -10,15 +10,6 @@ export default function WeatherScreen({navigation}) {
     const [locationName, setLocationName] = useState('Waiting..');
     const [swipeableRef, setSwipeableRef] = useState(null);
 
-    const[value, setValue] = useState([{key: 1, name: "Zurich"}, {key: 2, name: "Bauma"}]);
-
-    const storePlace = async () => {
-        try {
-            await AsyncStorage.setItem("locations", JSON.stringify(value));
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     //UseEffect for getting Current Location
     useEffect(() => {
@@ -94,7 +85,6 @@ export default function WeatherScreen({navigation}) {
         <View style={styles.container}>
             <ImageBackground source={require('./../assets/wolke.jpg')} style={styles.background}>
                 <View style={styles.innerContainer}>
-                    <Button title={'save'} onPress={storePlace}></Button>
                     <FlatList data={favoritesList}
                               keyExtractor={item => item.key}
                               renderItem={({item}) =>
