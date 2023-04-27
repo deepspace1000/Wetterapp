@@ -1,5 +1,6 @@
-import {Text, View} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import React from "react";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function Details(props) {
 
@@ -28,7 +29,15 @@ export default function Details(props) {
             <View>
                 <Text>Hallo von WeatherScreen!</Text>
                 <Text>{temp}</Text>
+                <Ionicons name={'star-outline'} style={styles.Icon} size={25}/>
             </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    Icon: {
+
+    }
+
+});

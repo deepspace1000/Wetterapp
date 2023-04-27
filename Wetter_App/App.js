@@ -36,7 +36,7 @@ export default function App() {
                                }
 
 
-                               return <Ionicons name={iconName} size={size} color={color} />;
+                               return <Ionicons name={iconName} size={size} color={color}/>;
                            },
                            tabBarShowLabel: true,
                            tabBarStyle: {
