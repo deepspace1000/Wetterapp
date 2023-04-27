@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, ImageBackground, FlatList, TouchableOpacity, Button} from 'react-native';
+import {Button, FlatList, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Swipeable } from 'react-native-gesture-handler';
-import { IconButton } from "react-native-paper";
-import { useFocusEffect } from '@react-navigation/native';
+import {Swipeable} from 'react-native-gesture-handler';
+import {IconButton} from "react-native-paper";
 
 
 export default function WeatherScreen({navigation}) {
     const [favoritesList, setFavoritesList] = useState([]);
+    const [showList, setShowList] = useState([]);
     const [locationName, setLocationName] = useState('Waiting..');
     const [swipeableRef, setSwipeableRef] = useState(null);
 
@@ -38,9 +38,9 @@ export default function WeatherScreen({navigation}) {
         })();
     }, []);
 
-    //Update the Current location with Favorites List
+    //Update the Current location with Show List
     useEffect(() => {
-        const updateCurrentLocation = favoritesList.map((item, i) =>{
+        const updateCurrentLocation = showList.map((item, i) =>{
             if (item.key === 0) {
                 return {...item, name: locationName };
             }
@@ -48,71 +48,47 @@ export default function WeatherScreen({navigation}) {
                 return item;
             }
         });
-        setFavoritesList(updateCurrentLocation)
+        setShowList(updateCurrentLocation)
     }, [locationName]);
 
-    /*
-    //useFocusEffect get all saved favorites places
-    useFocusEffect(
-        React.useCallback(() =>{
-            const current = favoritesList.filter((item) => item.key === 0);
-            const fetchData = async () => {
-                try {
-                    const savedPlace = await AsyncStorage.getItem("locations");
-                    const currentPlace = JSON.parse(savedPlace);
-                    const newList = [{key: 0, name: locationName}, ...currentPlace];
-                    setFavoritesList(newList);
-                } catch (error) {
-                    console.log(error)
-                }
-            };
-            fetchData();
-        }, [])
-    );
-    */
 
-    useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () =>{
-            const current = favoritesList.filter((item) => item.key === 0);
-            const fetchData = async () => {
-                try {
-                    const savedPlace = await AsyncStorage.getItem("locations");
-                    const currentPlace = JSON.parse(savedPlace);
-                    const newList = [{key: 0, name: locationName}, ...currentPlace];
-                    setFavoritesList(newList);
-                } catch (error) {
-                    console.log(error)
-                }
-            };
-            fetchData();
-        })
-        return unsubscribe;
-    }, [navigation]);
-    /*
-    useEffect(() => {
-        (async () => {
-            try {
-                const savedPlace = await AsyncStorage.getItem("locations");
-                const currentPlace = JSON.parse(savedPlace);
-                const newList = [{key: 0, name: locationName}, ...currentPlace];
-                setFavoritesList(newList);
-            } catch (error) {
-                console.log(error)
-            }
-        })();
-    }, []);
-*/
+
     //Update Local storage
     useEffect(() => {
-        const temp = favoritesList.filter((item) => item.key !== 0);
         (async () => {
             try {
-                await AsyncStorage.setItem("locations", JSON.stringify(temp));
+                await AsyncStorage.setItem("locations", JSON.stringify(favoritesList));
             } catch (error) {
                 console.log(error);
             }
         })();
     }, [favoritesList]);
+
+    //update Favorites List on site load
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            getLocations();
+        });
+
+        return unsubscribe;
+    }, [navigation]);
+
+    //add favorite list to show list
+    useEffect(() => {
+        setShowList([{key: 0, name: locationName}, ...favoritesList]);
+    }, [favoritesList])
+
+    const getLocations = async () => {
+        try {
+            const savedPlace = await AsyncStorage.getItem("locations");
+            const currentPlace = JSON.parse(savedPlace);
+            const newList = [...currentPlace];
+            console.log(newList)
+            setFavoritesList(newList);
+        } catch (error) {
+            console.log(error)
+        }
+    };
 
     const handleDelete = (index) => {
         const temp = favoritesList.filter((item) => item.key !== index);
@@ -120,11 +96,14 @@ export default function WeatherScreen({navigation}) {
 
     }
 
+
+
     return (
         <View style={styles.container}>
             <ImageBackground source={require('./../assets/wolke.jpg')} style={styles.background}>
                 <View style={styles.innerContainer}>
-                    <FlatList data={favoritesList}
+                    <Button title={'Rerender'} onPress={getLocations}/>
+                    <FlatList data={showList}
                               keyExtractor={item => item.key}
                               renderItem={({item}) =>
                                   <Swipeable

@@ -10,7 +10,7 @@ export default function Details(props, ) {
     const SaveStar = () => {
         if (props.isFavorite){
             return(
-                <Ionicons name={'star'} style={styles.Icon} size={25} onPress={() => {console.log("pressed")}}/>
+                <Ionicons name={'star'} style={styles.Icon} size={25} onPress={() => {props.handleStatusChange()}}/>
             );
         }else {
             return (

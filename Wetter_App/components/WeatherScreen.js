@@ -51,6 +51,8 @@ export default function WeatherScreen({route, navigation}) {
 
     const handleStatusChange = () => {
         if (isFavorite){
+            const temp = savedPlaces.filter((item) => item.name !== location);
+            setSavedPlaces(temp);
 
         }else {
             const generateKey = savedPlaces.length + 1;
@@ -73,8 +75,16 @@ export default function WeatherScreen({route, navigation}) {
     };
 
     useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchSavedPlaces();
+        });
+
+        return unsubscribe;
+    }, [navigation]);
+
+    useEffect(() => {
         fetchWeather(location);
-        fetchSavedPlaces();
+        //fetchSavedPlaces();
         navigation.setOptions({title: location});
 
     }, [location]);
