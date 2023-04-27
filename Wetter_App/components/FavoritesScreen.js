@@ -37,9 +37,8 @@ export default function WeatherScreen({navigation}) {
                     longitude
                 });
                 for (let item of response) {
-                    let address = `${item.postalCode}, ${item.city}`;
+                    let address = `${item.city}`;
                     setLocationName(address);
-                    //console.log(address);
                 }
             }
 
@@ -67,7 +66,6 @@ export default function WeatherScreen({navigation}) {
                 const currentPlace = JSON.parse(savedPlace);
                 const newList = [{key: 0, name: locationName}, ...currentPlace];
                 setFavoritesList(newList);
-                console.log(currentPlace);
             } catch (error) {
                 console.log(error)
             }

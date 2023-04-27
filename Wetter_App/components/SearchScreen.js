@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import {Icon} from "@rneui/themed";
 
 
-export default function SearchScreen({fetchWeather}) {
+export default function SearchScreen({navigation}) {
 
     const [locationName, setlocationName] = useState('');
 
@@ -17,7 +17,8 @@ export default function SearchScreen({fetchWeather}) {
                         value={locationName}
                         onChangeText={(text) => setlocationName(text)}
                     />
-                    <Icon name="search" onPress={() => fetchWeather(locationName)}/>
+                    <Icon name="search" onPress={() => {
+                        navigation.navigate('Wetter', {location: locationName})}}/>
                 </View>
             </ImageBackground>
         </View>

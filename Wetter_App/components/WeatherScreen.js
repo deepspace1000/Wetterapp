@@ -6,7 +6,8 @@ import {ImageBackground, View, Text, StyleSheet} from 'react-native';
 
 export default function WeatherScreen({route}) {
 
-    const [weatherdata, setWeatherData] = useState(null);
+    const{location} = route.params;
+    const [weatherData, setWeatherData] = useState(null);
     const [loaded, setLoaded] = useState(false);
 
     const fetchWeather = async (locationName) => {
@@ -29,12 +30,12 @@ export default function WeatherScreen({route}) {
     };
 
     useEffect(() => {
-        fetchWeather('Havanna');
-    }, []);
+        fetchWeather(location);
+    }, [location]);
 
 
 
-    const{location} = route.params;
+
 
 
     if(!loaded){
@@ -44,7 +45,7 @@ export default function WeatherScreen({route}) {
             </View>
         );
     }
-    else if(weatherdata === null) {
+    else if(weatherData === null) {
         return (
             <View style={styles.container}>
                 <Text>City not Found</Text>
@@ -55,7 +56,7 @@ export default function WeatherScreen({route}) {
     const {
         //Bald werden noch mehr Daten zu auswahl stehen
         main: {temp}
-    } = weatherdata;
+    } = weatherData;
 
 
   return (
