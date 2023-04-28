@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import {Icon} from "@rneui/themed";
 
 
+
 export default function SearchScreen({navigation}) {
 
     const [locationName, setlocationName] = useState('');
