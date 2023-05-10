@@ -61,24 +61,28 @@ export default function Details(props, ) {
                             <BlurView intensity={50}  style={styles.blurBorderTemp}>
                                 <Text style={styles.text}>{temp}°C</Text>
                             </BlurView>
-                            <BlurView intensity={50}  style={styles.blurBorderTempMax_Min}>
-                                <Text style={styles.text}>{temp_min}°C --- {temp_max}°C</Text>
-                            </BlurView>
-                            <BlurView intensity={50}  style={styles.blurBorderFeelsLike_WindSpeed}>
-                                <Text style={styles.text}>
-                                    Feels like {feels_like}°C
-                                    Wind speed {speed}m/s
-                                </Text>
-                            </BlurView>
-                            <BlurView intensity={50}  style={styles.blurBorderPressure_humidity}>
-                                <Text style={styles.text}>
-                                    Pressure {pressure} hPa
-                                    Humidity {humidity}%
-                                </Text>
-                            </BlurView>
-                            <BlurView intensity={50}  style={styles.blurBorderClouds}>
-                                <Text style={styles.text}>Cloudiness {all}%</Text>
-                            </BlurView>
+                            <View style={styles.view}>
+                                <BlurView intensity={50}  style={styles.blurBorderTempMax_Min}>
+                                    <Text style={styles.text}>{temp_min}°C --- {temp_max}°C</Text>
+                                </BlurView>
+                                <BlurView intensity={50}  style={styles.blurBorderFeelsLike_WindSpeed}>
+                                    <Text style={styles.text}>
+                                        Feels like {feels_like}°C
+                                        Wind speed {speed}m/s
+                                    </Text>
+                                </BlurView>
+                            </View>
+                            <View style={styles.view}>
+                                <BlurView intensity={50}  style={styles.blurBorderPressure_humidity}>
+                                    <Text style={styles.text}>
+                                        Pressure {pressure} hPa
+                                        Humidity {humidity}%
+                                    </Text>
+                                </BlurView>
+                                <BlurView intensity={50}  style={styles.blurBorderClouds}>
+                                    <Text style={styles.text}>Cloudiness {all}%</Text>
+                                </BlurView>
+                            </View>
                             <BlurView intensity={50}  style={styles.blurBorderSunrise_Sunset}>
                                 <Text style={styles.text}>Noch nichts</Text>
                             </BlurView>
@@ -119,8 +123,9 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         borderColor: '#fff',
         alignItems: "center",
+        alignSelf: "flex-start",
         paddingTop: 25,
-        marginLeft: 10,
+        marginLeft: 17,
         marginTop: 5,
     },
     blurBorderFeelsLike_WindSpeed: {
@@ -141,8 +146,9 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         borderColor: '#fff',
         alignItems: "center",
+        alignSelf: "flex-start",
         paddingTop: 15,
-        marginLeft: 10,
+        marginLeft: 17,
         marginTop: 5,
 
     },
@@ -158,7 +164,7 @@ const styles = StyleSheet.create({
         marginTop: -80,
     },
     blurBorderSunrise_Sunset: {
-        width: 370,
+        width: 378,
         height: 80,
         borderWidth: 2,
         borderRadius: 4,
@@ -182,5 +188,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
         alignSelf: "center",
         paddingBottom: 25
+    },
+    view: {
+        alignItems: "center"
     }
 });
