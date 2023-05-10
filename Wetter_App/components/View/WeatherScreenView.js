@@ -57,7 +57,7 @@ export default function Details(props, ) {
                             />
                             <Text style={styles.description}>{description}</Text>
                         </View>
-                        <View>
+                        <View style={styles.weatherInfos}>
                             <BlurView intensity={50}  style={styles.blurBorderTemp}>
                                 <Text style={styles.text}>{temp}°C</Text>
                             </BlurView>
@@ -96,25 +96,31 @@ export default function Details(props, ) {
 const styles = StyleSheet.create({
     innerContainer: {
         flex: 1,
-        alignItems: 'stretch',
         marginTop: 90,
+        alignItems: "stretch",
     },
     topBar: {
         alignItems: "flex-end",
         marginRight: 40,
     },
     weatherDetails: {
-
+        flex: 1,
+        alignItems: "stretch",
+    },
+    weatherInfos:{
+        alignItems: "center",
+        marginRight: 20,
+        marginLeft: 20,
     },
     blurBorderTemp: {
-        width: 120,
+        width: '30%',
         height: 80,
         borderWidth: 2,
         borderRadius: 4,
         borderColor: '#fff',
         alignItems: "center",
         paddingTop: 25,
-        alignSelf: "center",
+
     },
     blurBorderTempMax_Min: {
         width: 180,
@@ -125,7 +131,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignSelf: "flex-start",
         paddingTop: 25,
-        marginLeft: 17,
+
         marginTop: 5,
     },
     blurBorderFeelsLike_WindSpeed: {
@@ -148,7 +154,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignSelf: "flex-start",
         paddingTop: 15,
-        marginLeft: 17,
+        //marginLeft: 17,
         marginTop: 5,
 
     },
