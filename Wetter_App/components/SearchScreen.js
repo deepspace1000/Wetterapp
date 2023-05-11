@@ -11,12 +11,13 @@ import {geocodeAsync} from "expo-location";
 export default function SearchScreen({navigation}) {
 
     const [locationName, setlocationName] = useState('');
-    const [position, setPosition] = useState(null);
+    const [position, setPosition] = useState({"accuracy": 100, "altitude": 0, "latitude": 47.3870107, "longitude": 8.8604146});
     const [error, setError] = useState(null);
 
     const handleGeocode = async () => {
         try{
             const response = await Location.geocodeAsync(locationName);
+            console.log(response);
             setPosition(response[0]);
             setError(null);
         } catch (err) {
@@ -45,13 +46,11 @@ export default function SearchScreen({navigation}) {
                             navigation.navigate('Wetter', {location: locationName})}}/>
                     </View>
                     <View style={styles.mapView}>
-                        {position ? (
-                            <MapView style={styles.map} region={position}>
+
+                            <MapView style={styles.map} region={position} initialRegion={{latitude: 47.36667, longitude: 8.55}}>
                                 <Marker coordinate={position} />
                             </MapView>
-                        ) : (
-                            <Text>Loading...</Text>
-                        )}
+
                     </View>
                 </View>
             </ImageBackground>

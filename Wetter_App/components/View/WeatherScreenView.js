@@ -19,6 +19,8 @@ export default function Details(props, ) {
         );}
     }
 
+
+
     if(!props.loaded){
         return(
             <View>
