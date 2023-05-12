@@ -103,7 +103,7 @@ export default function WeatherScreen({route, navigation}) {
 
   return (
     <View style={styles.container}>
-        <ImageBackground source={require('./../assets/wolke.jpg')} style={styles.background}>
+        <ImageBackground source={require('../assets/wolke1.jpg')} style={styles.background}>
             <Details weatherData={weatherData} loaded={loaded} isFavorite={isFavorite} handleStatusChange={handleStatusChange}/>
         </ImageBackground>
     </View>
@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         justifyContent: 'center',
         alignItems: "stretch",
+        opacity: 0.8,
     },
 
 });

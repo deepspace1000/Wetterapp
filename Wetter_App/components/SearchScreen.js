@@ -11,7 +11,12 @@ import {geocodeAsync} from "expo-location";
 export default function SearchScreen({navigation}) {
 
     const [locationName, setlocationName] = useState('');
-    const [position, setPosition] = useState({"accuracy": 100, "altitude": 0, "latitude": 47.3870107, "longitude": 8.8604146});
+    const [position, setPosition] = useState({
+        latitude: 47.3717402,
+        longitude:  8.5367892,
+        latitudeDelta: 0.02,
+        longitudeDelta: 0.02,});
+
     const [error, setError] = useState(null);
 
     const handleGeocode = async () => {
@@ -33,7 +38,7 @@ export default function SearchScreen({navigation}) {
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={require('./../assets/wolke.jpg')} style={styles.background}>
+            <ImageBackground source={require('../assets/wolke1.jpg')} style={styles.background}>
                 <View style={styles.innerContainer}>
                     <View style={styles.searchBar}>
                         <TextInput
@@ -45,13 +50,9 @@ export default function SearchScreen({navigation}) {
                         <Icon  name="search" style={styles.searchItem} onPress={() => {
                             navigation.navigate('Wetter', {location: locationName})}}/>
                     </View>
-                    <View style={styles.mapView}>
-
-                            <MapView style={styles.map} region={position} initialRegion={{latitude: 47.36667, longitude: 8.55}}>
-                                <Marker coordinate={position} />
-                            </MapView>
-
-                    </View>
+                    <MapView style={styles.map} region={position} initialRegion={position}>
+                        <Marker coordinate={position} />
+                    </MapView>
                 </View>
             </ImageBackground>
         </View>
@@ -65,22 +66,22 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
         resizeMode: 'cover',
-        justifyContent: 'center',
         alignItems: 'stretch',
+        opacity: 0.8,
     },
     innerContainer: {
         flex: 1,
-        alignItems: 'center',
         marginTop: 90,
     },
     searchBar: {
         alignItems: 'center',
         flexDirection: 'row',
         backgroundColor: '#ffffff',
-        margin: 5,
+        margin: '2%',
         height: 50,
         borderRadius: 15,
-        width: '60%'
+        width: '60%',
+        alignSelf: 'center',
 
     },
     textInput: {
@@ -91,12 +92,13 @@ const styles = StyleSheet.create({
         alignSelf: "flex-end",
         marginRight: 20,
     },
-    mapView: {
-        flex: 1,
-        //alignItems: 'stretch',
-    },
     map: {
-        height: 300,
-        width: 300,
+        flex: 1,
+        alignItems: 'center',
+        borderRadius: 15,
+        marginLeft: '5%',
+        marginRight: '5%',
+        marginBottom: '35%',
+        marginTop: '5%',
     },
 });

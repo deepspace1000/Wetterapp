@@ -100,7 +100,7 @@ export default function WeatherScreen({navigation}) {
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={require('./../assets/wolke.jpg')} style={styles.background}>
+            <ImageBackground source={require('../assets/wolke1.jpg')} style={styles.background}>
                 <View style={styles.innerContainer}>
                     <Button title={'Rerender'} onPress={getLocations}/>
                     <FlatList data={showList}
@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         justifyContent: 'center',
         alignItems: "stretch",
+        opacity: 0.8,
     },
     innerContainer: {
         flex: 1,
