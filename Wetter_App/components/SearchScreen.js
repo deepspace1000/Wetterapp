@@ -38,7 +38,7 @@ export default function SearchScreen({navigation}) {
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={require('../assets/wolke1.jpg')} style={styles.background}>
+            <ImageBackground source={require('../assets/wolke.jpg')} style={styles.background}>
                 <View style={styles.innerContainer}>
                     <View style={styles.searchBar}>
                         <TextInput
