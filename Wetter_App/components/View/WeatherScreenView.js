@@ -42,8 +42,9 @@ export default function Details(props, ) {
             visibility,
             wind: {speed},
             clouds: {all},
-            sys: {sunrise, sunset},
-            timezone
+            sys: {country,sunrise, sunset},
+            timezone,
+            name
         } = props.weatherData;
 
         return (
@@ -86,7 +87,7 @@ export default function Details(props, ) {
                                 </BlurView>
                             </View>
                             <BlurView intensity={50}  style={styles.blurBorderSunrise_Sunset}>
-                                <Text style={styles.text}>Noch nichts</Text>
+                                <Text style={styles.text}>Country {country} | Name {name}</Text>
                             </BlurView>
                         </View>
                 </View>
