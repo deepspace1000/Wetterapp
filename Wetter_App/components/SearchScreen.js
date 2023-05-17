@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import {Icon} from "@rneui/themed";
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
-import {geocodeAsync} from "expo-location";
+
 
 
 

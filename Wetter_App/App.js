@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, ImageBackground} from 'react-native'
+import {StyleSheet} from 'react-native'
 import WeatherScreen from './components/WeatherScreen';
 import FavoritesScreen from './components/FavoritesScreen';
 import SearchScreen from './components/SearchScreen';
