@@ -102,7 +102,6 @@ export default function WeatherScreen({navigation}) {
         <View style={styles.container}>
             <ImageBackground source={require('../assets/wolke.jpg')} style={styles.background}>
                 <View style={styles.innerContainer}>
-                    <Button title={'Rerender'} onPress={getLocations}/>
                     <FlatList data={showList}
                               keyExtractor={item => item.key}
                               renderItem={({item}) =>
