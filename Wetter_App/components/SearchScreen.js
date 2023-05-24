@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, ImageBackground, TextInput, Button} from 'react-native';
+import {View, StyleSheet, ImageBackground, TextInput} from 'react-native';
 import { useState, useEffect } from 'react';
 import {Icon} from "@rneui/themed";
 import MapView, { Marker } from 'react-native-maps';

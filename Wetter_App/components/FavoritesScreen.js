@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, FlatList, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Swipeable} from 'react-native-gesture-handler';

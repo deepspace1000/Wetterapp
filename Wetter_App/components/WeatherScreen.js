@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ImageBackground, View, Text, StyleSheet} from 'react-native';
+import {ImageBackground, View, StyleSheet} from 'react-native';
 import Details from './View/WeatherScreenView'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
