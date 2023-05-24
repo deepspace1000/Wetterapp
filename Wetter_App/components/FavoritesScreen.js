@@ -83,7 +83,6 @@ export default function WeatherScreen({navigation}) {
             const savedPlace = await AsyncStorage.getItem("locations");
             const currentPlace = JSON.parse(savedPlace);
             const newList = [...currentPlace];
-            console.log(newList)
             setFavoritesList(newList);
         } catch (error) {
             console.log(error)

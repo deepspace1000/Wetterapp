@@ -22,7 +22,6 @@ export default function SearchScreen({navigation}) {
     const handleGeocode = async () => {
         try{
             const response = await Location.geocodeAsync(locationName);
-            console.log(response);
             setPosition(response[0]);
             setError(null);
         } catch (err) {
